@@ -7,7 +7,7 @@
 
 	const fetch = async () => {
 		if (counter.value > 2) {
-			window.location.replace(window.location.href);
+			window.location.replace(window.location.origin);
 			console.log("Reloading page due to counter limit");
 			return;
 		}
