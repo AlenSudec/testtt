@@ -1,18 +1,33 @@
 <script setup>
 	import { useApi } from "./api/useApi";
+	import { ref } from "vue";
 	const { get } = useApi();
 
+	const counter = ref(0);
+
 	const fetch = async () => {
+		if (counter.value > 2) {
+			window.location.replace(window.location.href);
+			console.log("Reloading page due to counter limit");
+			return;
+		}
+
 		try {
 			const response = await get("https://jsonplaceholder.typicode.com");
 
+			counter.value += 1;
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
 	};
 </script>
 <template>
+	<nav>
+		<router-link to="/">Home</router-link> |
+		<router-link to="/info">Info</router-link>
+	</nav>
 	<main>
+		<router-view />
 		<h1>TEST</h1>
 		<button @click="fetch">fetch</button>
 	</main>
